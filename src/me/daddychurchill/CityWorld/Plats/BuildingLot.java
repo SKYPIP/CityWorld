@@ -42,6 +42,7 @@ public abstract class BuildingLot extends ConnectedLot {
 	protected MaterialFactory wallsCurved;
 	protected int aboveFloorHeight;
 	protected int basementFloorHeight;
+	protected byte maximumDecayLevel=5; //It goes from 0 to 10. 0 being no decay, and 10 being randomly selected decay with probability of maximum strength.
 	
 	protected final static byte antennaBaseId = (byte) Material.CLAY.getId();
 	protected final static byte antennaId = (byte) Material.FENCE.getId();
@@ -105,10 +106,22 @@ public abstract class BuildingLot extends ConnectedLot {
 		stairDirection = pickStairDirection();
 		interiorStyle = pickInteriorStyle();
 		columnMaterial = Material.COBBLE_WALL;
-		wallsWE = new OutsideWEWallFactory(chunkOdds, platmap.generator.settings.includeDecayedBuildings);
+		
+		if (platmap.generator.settings.includeDecayedBuildings && 0<=maximumDecayLevel && maximumDecayLevel<=10){
+			wallsWE = new OutsideWEWallFactory(chunkOdds, (byte)( maximumDecayLevel-(10 * Math.random()) ) );
+		} else {
+			wallsWE = new OutsideWEWallFactory(chunkOdds, (byte) 0);
+		}
+		
 		wallsNS = new OutsideNSWallFactory(wallsWE);
 		wallsCurved = new CurvedWallFactory(wallsWE);
-		wallsInterior = new InteriorWallFactory(chunkOdds, platmap.generator.settings.includeDecayedBuildings);
+		
+		if (platmap.generator.settings.includeDecayedBuildings && 0<=maximumDecayLevel && maximumDecayLevel<=10){
+			wallsInterior = new InteriorWallFactory(chunkOdds, (byte)( maximumDecayLevel-(10 * Math.random()) ) );
+		} else {
+			wallsInterior = new InteriorWallFactory(chunkOdds, (byte) 0);
+		}
+		
 		forceNarrowInteriorMode = chunkOdds.playOdds(context.oddsOfForcedNarrowInteriorMode);
 		differentInteriorModes = context.oddsOfDifferentInteriorModes;
 	}
