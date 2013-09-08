@@ -10,7 +10,7 @@ public abstract class MaterialFactory {
 	public enum HorizontalStyle {WG, WGG, WGGG, WWG, WWGG, GGGG, RANDOM};
 	public VerticalStyle verticalStyle;
 	public HorizontalStyle horizontalStyle;
-	protected Boolean decayed;
+	protected byte decayed;
 	protected Odds odds;
 	
 	protected double oddsOfDecay = DataContext.oddsSomewhatLikely;
@@ -84,9 +84,11 @@ public abstract class MaterialFactory {
 	}
 	
 	protected void decayMaterial(SupportChunk chunk, int x, int y1, int y2, int z) {
-		if (decayed && odds.playOdds(oddsOfDecay)) {
-			int range = Math.max(1, y2 - y1);
-			chunk.setBlock(x, y1 + odds.getRandomInt(range), z, airId);
+		if (decayed > 0) {
+			if (odds.playOdds((double) (decayed / 10))) {
+				int range = Math.max(1, y2 - y1);
+				chunk.setBlock(x, y1 + odds.getRandomInt(range), z, airId);
+			}
 		}
 	}
 	
