@@ -16,7 +16,7 @@ public abstract class MaterialFactory {
 	protected double oddsOfDecay = DataContext.oddsSomewhatLikely;
 	protected byte airId = (byte) Material.AIR.getId();
 	
-	public MaterialFactory(Odds odds, boolean decayed) {
+	public MaterialFactory(Odds odds, byte decayed) {
 		super();
 		this.odds = odds;
 		this.decayed = decayed;
