@@ -2,7 +2,7 @@ package me.daddychurchill.CityWorld.Support;
 
 public class OutsideNSWallFactory extends MaterialFactory {
 
-	public OutsideNSWallFactory(Odds odds, boolean decayed) {
+	public OutsideNSWallFactory(Odds odds, byte decayed) {
 		super(odds, decayed);
 	}
 
