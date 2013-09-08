@@ -2,7 +2,7 @@ package me.daddychurchill.CityWorld.Support;
 
 public class CurvedWallFactory extends MaterialFactory {
 
-	public CurvedWallFactory(Odds odds, boolean decayed) {
+	public CurvedWallFactory(Odds odds, byte decayed) {
 		super(odds, decayed);
 	}
 
