@@ -2,7 +2,7 @@ package me.daddychurchill.CityWorld.Support;
 
 public class InteriorWallFactory extends MaterialFactory {
 
-	public InteriorWallFactory(Odds odds, boolean decayed) {
+	public InteriorWallFactory(Odds odds, byte decayed) {
 		super(odds, decayed);
 	}
 
